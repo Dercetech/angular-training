@@ -1,0 +1,28 @@
+{
+  "name": "angular-training",
+  "version": "1.0.0",
+  "description": "Angular training course material",
+  "main": "public/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dercetech/angular-training.git"
+  },
+  "keywords": [
+    "angular",
+    "angularjs",
+    "tutorial",
+    "training"
+  ],
+  "author": "Jérémie Mercier",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dercetech/angular-training/issues"
+  },
+  "homepage": "https://github.com/Dercetech/angular-training#readme",
+  "dependencies": {
+    "bower": "^1.7.9"
+  }
+}

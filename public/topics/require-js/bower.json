@@ -1,0 +1,26 @@
+{
+  "name": "angular-training",
+  "description": "Angular training course material",
+  "main": "index.html",
+  "authors": [
+    "Jérémie Mercier"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "angular",
+    "angularjs",
+    "tutorial",
+    "training"
+  ],
+  "homepage": "https://github.com/Dercetech/angular-training",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.5"
+  }
+}
