@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>Angular $scope</title>
+  
+  <!-- Angular library -->
+  <script src="./lib/bower_components/angular/angular.js"></script>
+  
+  <!-- Your angular app -->
+  <script src="./app/main.js"></script>
+  
+    <!-- example page controller -->
+    <script src="./app/example-controller.js"></script>
+    
+    <!-- example directives -->
+    <script src="./app/example-directives.js"></script>
+    
+    <style>
+      
+      #outer-scope{
+        
+        padding: 8px;
+        background-color: #FEE;
+      }
+      
+      .isolate-scope{
+        
+        padding: 8px;
+        background-color: #FFE;
+      }
+      
+      .within-directive{
+        
+        margin-bottom: 16px;
+        padding: 8px;
+        background-color: #EFE;
+      }
+      
+      .sep{
+        display: block;
+        margin-left: 12px;
+      }
+      
+    </style>
+    
+</head>
+
+<body>
+  
+  <div ng-controller="OuterController as ctrl">
+    
+    <ul>
+      <li><a href="#" ng-click="ctrl.showSections.outer = !ctrl.showSections.outer">outer scope issues</a></li>
+      <li><a href="#" ng-click="ctrl.showSections.outerBest = !ctrl.showSections.outerBest">outer scope best practice</a></li>
+      <li><a href="#" ng-click="ctrl.showSections.directive = !ctrl.showSections.directive">directives & scoping</a></li>
+    </ul>
+
+    <!-- Demonstrate scope inheritance issues -->    
+    <div id="outer-scope" ng-if="ctrl.showSections.outer">
+      
+      <p>This is the outer scope</p>
+      
+      <span class="sep">
+        <p>
+          <b>Outer scope primitive value:</b> {{aPrim ? aPrim : '$scope property "aPrim" not yet defined'}}
+        </p>
+        
+        <p>
+          Set new value from outer scope:
+          <input ng-model="aPrim" type="number">
+        </p>
+        
+        <p>
+          <a href="#" ng-hide="linkIsolateScope" ng-click="linkIsolateScope = true">add isolate scope</a>
+          <span ng-show="linkIsolateScope">debug data is {{showDebug ? '' : 'not'}} shown.</span>
+        </p>
+      </span>
+
+      <div ng-if="linkIsolateScope" class="isolate-scope">
+          Edit "aPrim" from a child scope: <input ng-model="aPrim" type="number">
+
+          <!-- nifty place here, showDebug is declared on the child scope -->
+          <p ng-hide="showDebug">
+            <a href="#" ng-click="showDebug = true">show debug</a>
+          </p>
+          
+          <p>debug data is {{showDebug ? '' : 'not'}} shown.</p>
+          
+          <div ng-show="showDebug">
+            Debug data:
+            <ul>
+              <li>$scope.$parent.aPrim: {{$parent.aPrim}}</li>
+              <li>$scope.aPrim: {{aPrim}}</li>
+              <li>$scope.$parent.aPrim === $scope.aPrim: {{$parent.aPrim === aPrim}}</li>
+            </ul>
+          </div>
+
+      </div>
+
+    </div>
+    <!-- Demonstrate scope inheritance issues - END -->    
+
+
+    <!-- Demonstrate scope inheritance best practice -->    
+    <div id="outer-scope" ng-if="ctrl.showSections.outerBest">
+      
+      <p>This is the outer scope (using wrapping object)</p>
+      
+      <span class="sep">
+        <p>
+          <b>Outer scope wrapped value:</b> {{scopeData.aPrim ? scopeData.aPrim : 'wrapped property "aPrim" not yet defined'}}
+        </p>
+        
+        <p>
+          Set new value from outer scope on data object:
+          <input ng-model="scopeData.aPrim" type="number">
+        </p>
+        
+        <p>
+          <a href="#" ng-hide="linkIsolateScope" ng-click="linkIsolateScope = true">add isolate scope</a>
+          <span ng-show="linkIsolateScope">debug data is {{scopeData.showDebug ? '' : 'not'}} shown.</span>
+        </p>
+      </span>
+
+      <div ng-if="linkIsolateScope" class="isolate-scope">
+          Edit "aPrim" from a child scope: <input ng-model="scopeData.aPrim" type="number">
+
+          <!-- nifty place here, showDebug is declared on the child scope -->
+          <p ng-hide="scopeData.showDebug">
+            <a href="#" ng-click="scopeData.showDebug = true">show debug</a>
+          </p>
+          
+          <p>debug data is {{scopeData.showDebug ? '' : 'not'}} shown.</p>
+          
+          <div ng-show="scopeData.showDebug">
+            Debug data:
+            <ul>
+              <li>scopeData: {{scopeData}}</li>
+              <li>$parent.scopeData: {{$parent.scopeData}}</li>
+              <li>$parent.scopeData: {{$parent.scopeData === scopeData}}</li>
+            </ul>
+          </div>
+
+      </div>
+
+    </div>
+    <!-- Demonstrate scope inheritance best practice - END -->    
+
+    <!-- Demonstrate scoping with directives -->    
+    <div id="outer-scope" ng-if="ctrl.showSections.directive">
+      
+      <p>This is the outer scope</p>
+      
+      <p>contents of the $scope.someData object:</p>
+      <p class="sep">{{someData}}</p>
+      
+      <p>example sentence</p>
+      <p class="sep">
+        > {{name}} is {{state}}!
+      </p>
+      
+      <!-- Type 1: "scope: false" (parent scope) -->
+      <div use-parent-scope></div>
+      
+      <!-- Type 2: "scope: true" (prototypically inherited from parent scope -->
+      <div use-child-scope></div>
+      <div use-child-scope></div>
+      
+      <!-- Type 3: "scope: {}" (isolated scope) -->
+      <div use-isolated-scope a-message="Who's what you say?!"></div>
+      
+      <!-- Type 4: Transcluded scope -->
+      <div use-transcluded-scope>
+        <!-- more in next session about transcluded scopes -->
+        <!-- great resource: http://angular-tips.com/blog/2014/03/transclusion-and-scopes/ -->
+        
+        <p><b>transcluded scope edition</b></p>
+        <p> > {{name}} is {{state}}!</p>
+        name: <input ng-model="name" type="text">
+        <br/>
+        state: <input ng-model="state" type="text">
+        
+        <p>debug:</p>
+        <ul>
+            <li>$scope.name: {{name}}</li>
+            <li>$scope.state: {{state}}</li>
+        </ul>
+      </div>
+      
+
+    </div>
+    <!-- Demonstrate scoping with directives - END -->
+    
+  </div>
+</body>
+</html>

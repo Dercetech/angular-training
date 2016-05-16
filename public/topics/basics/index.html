@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Angular with Require.js</title>
+  <script data-main="require-config" src="./lib/require/last/require.js"></script>
+</head>
+
+<body>
+  <div ng-controller="DashboardController as ctrl">
+      it is {{ctrl.doSomething ? ctrl.doSomething() : 'not working'}}!
+  </div>
+</body>
+</html>
