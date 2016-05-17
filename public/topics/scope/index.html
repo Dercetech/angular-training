@@ -30,6 +30,13 @@
         background-color: #FFE;
       }
       
+      .repeat-scope{
+        
+        margin-bottom: 16px;
+        padding: 8px;
+        background-color: #EFF;
+      }
+      
       .within-directive{
         
         margin-bottom: 16px;
@@ -52,7 +59,9 @@
     
     <ul>
       <li><a href="#" ng-click="ctrl.showSections.outer = !ctrl.showSections.outer">outer scope issues</a></li>
+      <li><a href="#" ng-click="ctrl.showSections.scopeRepeat = !ctrl.showSections.scopeRepeat">scope issue with ng-repeat</a></li>
       <li><a href="#" ng-click="ctrl.showSections.outerBest = !ctrl.showSections.outerBest">outer scope best practice</a></li>
+      <li><a href="#" ng-click="ctrl.showSections.useController = !ctrl.showSections.useController">use controller</a></li>
       <li><a href="#" ng-click="ctrl.showSections.directive = !ctrl.showSections.directive">directives & scoping</a></li>
     </ul>
 
@@ -101,6 +110,39 @@
     </div>
     <!-- Demonstrate scope inheritance issues - END -->    
 
+    <!-- Demonstrate scope inheritance with ng-repeat -->
+    <div id="outer-scope" ng-if="ctrl.showSections.scopeRepeat">
+      
+      <p>This is the outer scope - let's ng-repeat!</p>
+      
+      <span class="sep">
+        <p>
+          <b>Outer scope primitive value:</b> {{aPrim ? aPrim : '$scope property "aPrim" not yet defined'}}
+        </p>
+        
+        <p>
+          Set new value from outer scope:
+          <input ng-model="aPrim" type="number">
+        </p>
+
+        
+        <div ng-repeat="item in stuff" class="repeat-scope">
+          
+          <p>
+            Edit "aPrim" from a child scope: <input ng-model="aPrim" type="number">
+          </p>
+          
+          <p>value at index {{$index}}: "{{item.blah}}"</p>
+          <ul>
+            <li>$scope.aPrim: {{aPrim}}</li>
+          </ul>
+        </div>
+
+      </span>
+
+    </div>
+    <!-- Demonstrate scope inheritance with ng-repeat - END -->
+
 
     <!-- Demonstrate scope inheritance best practice -->    
     <div id="outer-scope" ng-if="ctrl.showSections.outerBest">
@@ -109,7 +151,7 @@
       
       <span class="sep">
         <p>
-          <b>Outer scope wrapped value:</b> {{scopeData.aPrim ? scopeData.aPrim : 'wrapped property "aPrim" not yet defined'}}
+          <b>Outer scope "someData.aPrim":</b> {{scopeData.aPrim ? scopeData.aPrim : 'wrapped property "aPrim" not yet defined'}}
         </p>
         
         <p>
@@ -124,7 +166,7 @@
       </span>
 
       <div ng-if="linkIsolateScope" class="isolate-scope">
-          Edit "aPrim" from a child scope: <input ng-model="scopeData.aPrim" type="number">
+          Edit "someData.aPrim" from a child scope: <input ng-model="scopeData.aPrim" type="number">
 
           <!-- nifty place here, showDebug is declared on the child scope -->
           <p ng-hide="scopeData.showDebug">
@@ -145,7 +187,28 @@
       </div>
 
     </div>
-    <!-- Demonstrate scope inheritance best practice - END -->    
+    <!-- Demonstrate scope inheritance best practice - END -->  
+
+    <!-- Demonstrate use of controller instead of $scope -->
+    <div id="outer-scope" ng-if="ctrl.showSections.useController">
+      
+      <p>This is the outer scope - let's use the controller reference</p>
+      
+      <p>contents of the ctrl.aPrim property: {{ctrl.aPrim ? ctrl.aPrim : 'aPrim is not defined on controller.'}}</p>
+
+      <span class="sep">
+        <p>
+          Set new value from outer scope:
+          <input ng-model="ctrl.aPrim" type="number">
+        </p>
+      </span>
+      
+      <div ng-if="true" class="isolate-scope">
+          Edit "ctrl.aPrim" from a child scope: <input ng-model="ctrl.aPrim" type="number">
+      </div>
+
+    </div>
+    <!-- Demonstrate use of controller instead of $scope - END -->
 
     <!-- Demonstrate scoping with directives -->    
     <div id="outer-scope" ng-if="ctrl.showSections.directive">
@@ -172,8 +235,6 @@
       
       <!-- Type 4: Transcluded scope -->
       <div use-transcluded-scope>
-        <!-- more in next session about transcluded scopes -->
-        <!-- great resource: http://angular-tips.com/blog/2014/03/transclusion-and-scopes/ -->
         
         <p><b>transcluded scope edition</b></p>
         <p> > {{name}} is {{state}}!</p>

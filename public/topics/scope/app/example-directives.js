@@ -21,7 +21,7 @@ myMainModule.directive('useParentScope', [/*no dependencies, */
     }
 ]);
 
-// 2: use the parent scope
+// 2: prototypically inherit the parent scope
 myMainModule.directive('useChildScope', [/*no dependencies, */
 
     function(/*no dependencies*/) {
@@ -65,7 +65,7 @@ myMainModule.directive('useTranscludedScope', [/*no dependencies, */
         var directiveDefinitionObject = {
             
             restrict: 'A',
-            scope: false, // change me!
+            scope: false, // can be "true" or an object (see example #3)
             transclude: true,
             
             templateUrl: 'app/directive-views/transcluded-scope.html'

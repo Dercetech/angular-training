@@ -19,9 +19,11 @@ angular.module('myApp').controller('OuterController',
 	    // Show example panes
 	    controller.showSections = {
 	    	
-	    	"outer"		: false,
-	    	"outerBest"	: false,
-	    	"directive"	: true
+	    	"outer"			: true,
+	    	"outerBest"		: false,
+	    	"scopeRepeat"	: false,
+	    	"useController"	: false,
+	    	"directive"		: false
 	    }
 	    
 	    // A primitive "aPrim" will be defined from the view
@@ -34,16 +36,15 @@ angular.module('myApp').controller('OuterController',
 	    	// aPrim	: 123
 	    }
 	    
+	    // Work directly with the controller
+	    //controller.aPrim = 123;
+	    
 	    // Used in the directive demonstration
-	    /*$scope.someData = {
-	    	"name" : "Jem",
-	    	"state": "hungry"
-	    }*/
 	    $scope.name = "Jem";
 	    $scope.state = "hungry";
 	    
 	    // Mock data to iterate over
-	    controller.stuff = [];
+	    $scope.stuff = [];
 	    
 	    // Expose functions ////////////////////////
 		///////////////////////////////////////////
@@ -57,7 +58,7 @@ angular.module('myApp').controller('OuterController',
 			// Create a list of objects to iterate over
 			for(var i = 0; i < 5; i++){
 				
-				controller.stuff[i] = {
+				$scope.stuff[i] = {
 					"blah"	: (Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5))
 				}
 			}

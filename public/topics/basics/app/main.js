@@ -12,5 +12,5 @@ var app = angular.module('myApp', [
 // On app started
 app.run(['$rootScope', function($rootScope){
 	
-	// console.log('> application ready');
+	console.log('> application ready');
 }]);

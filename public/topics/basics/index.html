@@ -1,14 +1,36 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Angular with Require.js</title>
-  <script data-main="require-config" src="./lib/require/last/require.js"></script>
-</head>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Basic AngularJS components</title>
 
-<body>
-  <div ng-controller="DashboardController as ctrl">
+    <!-- order matters !!! -->
+
+    <!-- 1. Angular library -->
+    <script src="./lib/bower_components/angular/angular.js"></script>
+    
+    <!-- 2. Your angular root app (order matters!) -->
+    <script src="./app/main.js"></script>
+    
+    <!-- 3. Your modules -->
+    
+      <!-- Module: dashboard -->
+      <script src="./app/modules/dashboard/module.js"></script>
+      <script src="./app/modules/dashboard/dashboard-controller.js"></script>
+
+  </head>
+  
+  <body>
+    
+    <h1>Hello app</h1>
+      
+    <div ng-controller="DashboardController as ctrl">
+    
       it is {{ctrl.doSomething ? ctrl.doSomething() : 'not working'}}!
-  </div>
-</body>
+    
+    </div>
+    
+  </body>
+  
 </html>
+
