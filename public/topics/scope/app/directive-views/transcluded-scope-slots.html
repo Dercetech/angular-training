@@ -1,5 +1,5 @@
 <div class="within-directive">
-    <p><b>Type 4: Transcluded (recap, tricky)</b></p>
+    <p><b>Type 4.1: Transcluded with slots</b></p>
     <p class="sep">
         Template gets directive scope: same as above (parent/child/isolate scope) (scope id: {{$id}})
         <br/>
@@ -17,8 +17,10 @@
             <li>$scope.state: {{state}}</li>
         </ul>
     </p>
-    
-    <!-- transclusion, yo! -->
-    <div ng-transclude></div>
+
+    <div class="transcluded">
+        <p><strong>slot 'name':</strong><div ng-transclude="name">fallback name</div></p>
+        <p><strong>slot 'state':</strong><div ng-transclude="state"></div></p>
+    </div>
 </div>
 

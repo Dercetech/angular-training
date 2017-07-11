@@ -65,12 +65,37 @@ myMainModule.directive('useTranscludedScope', [/*no dependencies, */
         var directiveDefinitionObject = {
             
             restrict: 'A',
-            scope: false, // can be "true" or an object (see example #3)
+            scope: true, // can be "true" or an object (see example #3)
+
+            // Transclude: true -> prototypically inherits the calling page's scope (creates a new scope in the transcluded contents)
             transclude: true,
             
             templateUrl: 'app/directive-views/transcluded-scope.html'
         };
         
+        return directiveDefinitionObject;
+    }
+]);
+
+// 4.1: use a transcluded scope
+myMainModule.directive('useTranscludedScopeSlots', [/*no dependencies, */
+
+    function(/*no dependencies*/) {
+
+        var directiveDefinitionObject = {
+
+            restrict: 'A',
+            scope: false, // can be "true" or an object (see example #3)
+
+            // Transclude: object -> pass through of the calling page's scope listed properties (no new scope is created)
+            transclude: {
+                'name': '?slotName',
+                'state': '?slotState'
+            },
+
+            templateUrl: 'app/directive-views/transcluded-scope-slots.html'
+        };
+
         return directiveDefinitionObject;
     }
 ]);

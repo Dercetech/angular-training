@@ -22,6 +22,7 @@
         
         padding: 8px;
         background-color: #FEE;
+        margin-bottom: 16px;
       }
       
       .isolate-scope{
@@ -48,6 +49,11 @@
         display: block;
         margin-left: 12px;
       }
+
+      .transcluded{
+        background-color: #DDE;
+        padding: 8px;
+      }
       
     </style>
     
@@ -58,11 +64,11 @@
   <div ng-controller="OuterController as ctrl">
     
     <ul>
-      <li><a href="#" ng-click="ctrl.showSections.outer = !ctrl.showSections.outer">outer scope issues</a></li>
-      <li><a href="#" ng-click="ctrl.showSections.scopeRepeat = !ctrl.showSections.scopeRepeat">scope issue with ng-repeat</a></li>
-      <li><a href="#" ng-click="ctrl.showSections.outerBest = !ctrl.showSections.outerBest">outer scope best practice</a></li>
-      <li><a href="#" ng-click="ctrl.showSections.useController = !ctrl.showSections.useController">use controller</a></li>
-      <li><a href="#" ng-click="ctrl.showSections.directive = !ctrl.showSections.directive">directives & scoping</a></li>
+      <li><a href="#" ng-click="ctrl.showSections.outer = !ctrl.showSections.outer">1) outer scope issues</a></li>
+      <li><a href="#" ng-click="ctrl.showSections.scopeRepeat = !ctrl.showSections.scopeRepeat">2) scope issue with ng-repeat</a></li>
+      <li><a href="#" ng-click="ctrl.showSections.outerBest = !ctrl.showSections.outerBest">3) outer scope best practice</a></li>
+      <li><a href="#" ng-click="ctrl.showSections.useController = !ctrl.showSections.useController">4) use controller</a></li>
+      <li><a href="#" ng-click="ctrl.showSections.directive = !ctrl.showSections.directive">5) directives & scoping</a></li>
     </ul>
 
     <!-- Demonstrate scope inheritance issues -->    
@@ -210,10 +216,10 @@
     </div>
     <!-- Demonstrate use of controller instead of $scope - END -->
 
-    <!-- Demonstrate scoping with directives -->    
+    <!-- 5. Demonstrate scoping with directives -->
     <div id="outer-scope" ng-if="ctrl.showSections.directive">
       
-      <p>This is the outer scope</p>
+      <p>This is the outer scope (scope id: {{$id}})</p>
       
       <p>contents of the $scope.someData object:</p>
       <p class="sep">{{someData}}</p>
@@ -235,21 +241,39 @@
       
       <!-- Type 4: Transcluded scope -->
       <div use-transcluded-scope>
-        
-        <p><b>transcluded scope edition</b></p>
-        <p> > {{name}} is {{state}}!</p>
-        name: <input ng-model="name" type="text">
-        <br/>
-        state: <input ng-model="state" type="text">
-        
-        <p>debug:</p>
-        <ul>
+
+        <div class="transcluded">
+          <p><b>transcluded scope edition (transcluded scope id: {{$id}})</b></p>
+          <p> > {{name}} is {{state}}!</p>
+          name: <input ng-model="name" type="text">
+          <br/>
+          state: <input ng-model="state" type="text">
+
+          <p>debug:</p>
+          <ul>
             <li>$scope.name: {{name}}</li>
             <li>$scope.state: {{state}}</li>
-        </ul>
-      </div>
-      
+          </ul>
+          <p>
+            <a href="https://static.thinkster.io/transclude-scope.png"
+               target="_blank">
+              Look at this diagram for transcluded scopes & sibling scopes
+            </a>
+          </p>
+          <p>
+            <a href="https://image.slidesharecdn.com/5angualrjsfeatures-140315085220-phpapp02/95/5-angularjs-features-7-638.jpg?cb=1394944477"
+               target="_blank">
+              Look at this diagram for a basic diagram
+            </a>
+          </p>
+        </div>
 
+      </div>
+
+      <!-- Type 4.1: Transcluded scope with slots-->
+      <div use-transcluded-scope-slots>
+        <slot-name>{{name}}</slot-name>
+        <slot-state>{{state}}</slot-state>
     </div>
     <!-- Demonstrate scoping with directives - END -->
     

@@ -19,7 +19,7 @@ angular.module('myApp').controller('OuterController',
 	    // Show example panes
 	    controller.showSections = {
 	    	
-	    	"outer"			: true,
+	    	"outer"			: false,
 	    	"outerBest"		: false,
 	    	"scopeRepeat"	: false,
 	    	"useController"	: false,
@@ -40,7 +40,7 @@ angular.module('myApp').controller('OuterController',
 	    //controller.aPrim = 123;
 	    
 	    // Used in the directive demonstration
-	    $scope.name = "Jem";
+	    $scope.name = "Gordon";
 	    $scope.state = "hungry";
 	    
 	    // Mock data to iterate over
